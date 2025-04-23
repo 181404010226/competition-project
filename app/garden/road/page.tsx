@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from 'react'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { ArrowLeftIcon } from '@heroicons/react/24/solid'
-import { createEmptyGrid, loadGardenLayout, isAdjacent } from './RoadBuilder'
+import { createEmptyGrid } from './RoadBuilder'
 import RoadBuilder from './RoadBuilder'
 import CustomerSimulation, { 
   getBuildingBaseConsumption, 
@@ -23,30 +23,6 @@ interface GameItem {
   size: number;
   type: ItemType;
   icon: string;
-}
-
-interface NPC extends GameItem {
-  type: 'npc';
-  bonusMultiplier?: number;
-  bonusPrice?: number;
-}
-
-interface Building extends GameItem {
-  type: 'building';
-  shape: number[][];
-  baseConsumption?: number;
-  basePrice?: number;
-}
-
-interface PlacedItem extends GameItem {
-  position: {
-    row: number;
-    col: number;
-  };
-  baseConsumption?: number;
-  basePrice?: number;
-  bonusMultiplier?: number;
-  bonusPrice?: number;
 }
 
 interface GardenCell {
@@ -93,7 +69,6 @@ export default function BusinessManagement() {
   const [users, setUsers] = useState<RoadUser[]>([]);
   const [isEditing, setIsEditing] = useState(true);
   const [totalCoins, setTotalCoins] = useState(0);
-  const [gardenLoaded, setGardenLoaded] = useState(false);
   const [consumptionEvents, setConsumptionEvents] = useState<Array<{
     buildingId: string;
     buildingName: string;
@@ -181,7 +156,6 @@ export default function BusinessManagement() {
           );
           
           setGrid(gridWithContent);
-          setGardenLoaded(true);
         }
       } catch (error) {
         console.error('Failed to load garden layout', error);

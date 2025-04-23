@@ -6,9 +6,14 @@ import Link from 'next/link'
 import { ArrowLeftIcon, HeartIcon, InformationCircleIcon, ChatBubbleLeftRightIcon } from '@heroicons/react/24/solid'
 import { getNPCData, DialogueOption, ConversationEntry, addConversationEntry, updateNPCRelationship, NPCData } from '../../data/npcData'
 import { useRouter } from 'next/navigation'
-import React from 'react'
+import React, { use } from 'react'
 
-export default function NPCDetailPage({ params }: { params: { id: string } }) {
+// 使用标准的 Next.js 15 参数格式
+export default function NPCDetailPage({
+  params,
+}: {
+  params: Promise<{ id: string }>
+}) {
   const router = useRouter()
   const [npc, setNpc] = useState<NPCData | null>(null)
   const [activeTab, setActiveTab] = useState<'chat' | 'info' | 'relationship'>('chat')
@@ -16,15 +21,17 @@ export default function NPCDetailPage({ params }: { params: { id: string } }) {
   const [conversations, setConversations] = useState<ConversationEntry[]>([])
   const chatEndRef = useRef<HTMLDivElement>(null)
   
-  // 处理params可能是Promise的情况
-  const id = params instanceof Promise 
-    ? React.use(params).id 
-    : params.id
+  // 使用 React.use 访问异步参数
+  const { id } = use(params) || { id: '' };
   
   useEffect(() => {
+    if (!id) {
+      router.push('/npc');
+      return;
+    }
+    
     // Load NPC data
-    const npcId = id
-    const npcData = getNPCData(npcId)
+    const npcData = getNPCData(id)
     if (npcData) {
       setNpc(npcData)
       setConversations(npcData.conversationHistory)

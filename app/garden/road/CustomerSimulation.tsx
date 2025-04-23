@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { isAdjacent } from './RoadBuilder';
 
 // Types
@@ -189,7 +189,6 @@ export default function CustomerSimulation({
         const userCell = selectedCells[userPosition];
         
         // Check for nearby buildings
-        let foundBuilding = false;
         let consumptionAmount = 0;
         
         for (let row = 0; row < grid.length; row++) {
@@ -211,12 +210,9 @@ export default function CustomerSimulation({
                 const willConsume = consumeChance > 0.3;
                 
                 if (willConsume) {
-                  foundBuilding = true;
-                  
                   // Calculate consumption amount based on building type and user type
                   const building = cell.content as Building;
                   const baseConsumption = building.baseConsumption || 5; // Default to 5 if not set
-                  const basePrice = building.basePrice || 10; // Default to 10 if not set
                   
                   // Check for nearby NPCs that can boost the building's consumption/price
                   const nearbyNPCs = getNPCsNearBuilding({ row, col });

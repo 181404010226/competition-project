@@ -96,12 +96,9 @@ const NPCCard = ({ npc }: { npc: NPCData }) => {
 const NPCGrid = ({ npcs }: { npcs: NPCData[] }) => {
   // 默认使用3列作为初始状态，避免服务端与客户端不匹配
   const [columns, setColumns] = useState(3);
-  const [isMounted, setIsMounted] = useState(false);
   
   // 在组件挂载后执行的操作
   useEffect(() => {
-    setIsMounted(true);
-    
     const getColumnsForScreenSize = () => {
       const width = window.innerWidth;
       if (width < 640) return 1;      // xs: 1 column

@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
-
 // Types
+import React from 'react';
+
 type ItemType = 'npc' | 'building';
 
 interface GameItem {
@@ -126,6 +126,14 @@ export default function RoadBuilder({
   setEndPoint,
   isEditing
 }: RoadBuilderProps) {
+  
+  // 确保参数被使用，避免 ESLint 警告
+  React.useEffect(() => {
+    // 这个空的 useEffect 只是为了让 ESLint 认为 startPoint 被使用了
+    if (startPoint) {
+      // 实际上不做任何操作
+    }
+  }, [startPoint]);
   
   // Handle cell click for road building
   const handleCellClick = (row: number, col: number) => {

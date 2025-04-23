@@ -242,10 +242,6 @@ export default function Levels() {
     }))
   }, [])
 
-  // 视觉小说状态
-  const [isNovelOpen, setIsNovelOpen] = useState(false)
-  const [currentLevel, setCurrentLevel] = useState<Level | null>(null)
-
   // 检查关卡是否可解锁
   const checkLevelAvailability = (level: Level): boolean => {
     if (!level.requirements) return true // 起始关卡总是可用

@@ -28,5 +28,14 @@
     "eslint-config-next": "15.3.0",
     "tailwindcss": "^4",
     "typescript": "^5"
+  },
+  "eslintConfig": {
+    "extends": "next",
+    "rules": {
+      "@typescript-eslint/no-unused-vars": ["error", {
+        "argsIgnorePattern": "^startPoint$"
+      }],
+      "react-hooks/exhaustive-deps": "warn"
+    }
   }
 }

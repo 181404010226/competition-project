@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { ArrowLeftIcon } from '@heroicons/react/24/solid'
@@ -172,7 +172,7 @@ export default function Garden() {
   };
 
   // Cancel holding item (on right click or escape key)
-  const cancelHoldingItem = (e: React.MouseEvent | React.KeyboardEvent) => {
+  const cancelHoldingItem = useCallback((e: React.MouseEvent | React.KeyboardEvent) => {
     if (e.type === 'contextmenu') {
       e.preventDefault();
     }
@@ -187,7 +187,7 @@ export default function Garden() {
       setHoldingItem(null);
       setSelectedItemIndex(null);
     }
-  };
+  }, [holdingItem, grid, setGrid, setHoldingItem, setSelectedItemIndex]);
 
   // Register escape key event
   useEffect(() => {
@@ -201,6 +201,7 @@ export default function Garden() {
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [holdingItem]);
 
   // Handle right click on an NPC

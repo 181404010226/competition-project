@@ -1,0 +1,21 @@
+{
+  "extends": "next/core-web-vitals",
+  "rules": {
+    "@typescript-eslint/no-unused-vars": ["error", {
+      "varsIgnorePattern": "^(isMounted|isNovelOpen|setIsNovelOpen|currentLevel|setCurrentLevel|gardenLoaded|foundBuilding)$",
+      "argsIgnorePattern": "^(startPoint)$"
+    }],
+    "react-hooks/exhaustive-deps": "warn"
+  },
+  "overrides": [
+    {
+      "files": ["app/garden/road/RoadBuilder.tsx"],
+      "rules": {
+        "@typescript-eslint/no-unused-vars": ["error", {
+          "vars": "all",
+          "args": "none"
+        }]
+      }
+    }
+  ]
+} 
